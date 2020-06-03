@@ -1,0 +1,60 @@
+version: "3.3"
+services:
+    recipe-app-api-server:
+        build: .
+        container_name: recipe-app-api-server
+        ports:
+            - "8000:8000"
+        networks:
+            - recipe-app-api-network
+        volumes:
+            - ./src:/src
+        command: >
+            sh -c "python manage.py migrate &&
+                python manage.py runserver 0.0.0.0:8000"
+        env_file:
+            - ./.env
+        environment: 
+            - DB_HOST=${DB_HOST}
+            - DB_NAME=${DB_NAME}
+            - DB_USER=${DB_USER}
+            - DB_PASS=${DB_PASS}
+        restart: on-failure
+        depends_on: 
+            - recipe-app-api-db
+    
+    recipe-app-api-db:
+        image: postgres:13-alpine
+        container_name: recipe-app-api-db
+        hostname: recipe-app-api-db
+        ports:
+            - 5432:5432
+        networks:
+            - recipe-app-api-network
+        env_file:
+            - ./.env
+        environment:
+            - POSTGRES_DB=${DB_NAME}
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASS}
+        volumes:
+            - ./data:/var/lib/postgresql/data
+    
+    recipe-app-api-db-client:
+        image: dpage/pgadmin4:latest 
+        container_name: recipe-app-api-db-client
+        hostname: pgadmin4
+        ports:
+            - 8080:80
+        networks:
+            - recipe-app-api-network
+        env_file:
+            - ./.env            
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+            - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+networks:
+    recipe-app-api-network:
+        driver: bridge
+        ipam:
+            driver: default
