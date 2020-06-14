@@ -25,3 +25,25 @@ class TagViewSet(viewsets.GenericViewSet,
     def perform_create(self, serializer):
         """Override method to include user name before saving"""
         serializer.save(owner=self.request.user)
+
+
+class IngredientViewSet(viewsets.GenericViewSet,
+                        mixins.ListModelMixin, mixins.CreateModelMixin):
+    """Manage Recipe Ingredients in the database"""
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsOwner, permissions.IsAuthenticated, )
+    queryset = models.Ingredient.objects.all()
+    serializer_class = serializers.IngredientSerializer
+
+    def get_queryset(self):
+        """Return objects for the current autheticated user only"""
+        if self.request.user.is_superuser:
+            return self.queryset.order_by('name')
+        else:
+            return self.queryset.filter(
+                owner=self.request.user,
+            ).order_by('name')
+
+    def perform_create(self, serializer):
+        """Override method to include user name before saving"""
+        serializer.save(owner=self.request.user)
