@@ -35,3 +35,31 @@ class ModelsTest(TestCase):
             )
 
         self.assertEqual(str(ingredient), ingredient.name)
+
+    def test_recipe_str(self):
+        """Test the recipe string representation"""
+        recipe = models.Recipe.objects.create(
+            owner=sample_user(),
+            title='Paneer Makhani',
+            time_in_minutes=5
+        )
+
+        self.assertEqual(str(recipe), recipe.title)
+
+    def test_instruction_str(self):
+        """Test the instruction string representation"""
+        recipe = models.Recipe.objects.create(
+            owner=sample_user(),
+            title='Paneer Makhani',
+            time_in_minutes=5
+        )
+
+        instruction = models.Instruction.objects.create(
+            recipe=recipe,
+            order=1,
+            description="Add 2tbsp. oil",
+        )
+
+        self.assertEqual(str(instruction),
+                         str(instruction.order) +
+                         ': ' + instruction.description)

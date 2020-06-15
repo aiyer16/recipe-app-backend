@@ -1,5 +1,5 @@
 # recipe-app-api
-REST API for the Recipe App created using Django REST framework
+REST API for the Recipe App created using Django REST framework. Clone this repository to use as template to fulfill all your API needs. 
 
 ## Installation guide
 
