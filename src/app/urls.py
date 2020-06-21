@@ -35,7 +35,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     # Swagger generator
-    path('', schema_view.with_ui('swagger', cache_timeout=0),
+    path('api/index', schema_view.with_ui('swagger', cache_timeout=0),
          name='schema-swagger-ui'),
 
     # Project URLs
