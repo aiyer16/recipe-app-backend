@@ -35,7 +35,7 @@ class Instruction(models.Model):
     """Instruction to make a recipe"""
 
     recipe = models.ForeignKey(
-        'Recipe', related_name='recipes', on_delete=models.CASCADE)
+        'Recipe', related_name='instructions', on_delete=models.CASCADE)
 
     order = models.IntegerField()
     description = models.TextField()
@@ -43,6 +43,9 @@ class Instruction(models.Model):
 
     def __str__(self):
         return f'{str(self.order)}: {self.description}'
+
+    class Meta:
+        unique_together = ['recipe', 'order']
 
 
 class Recipe(OwnerModel):
