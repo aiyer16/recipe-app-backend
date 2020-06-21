@@ -50,7 +50,7 @@ class IngredientViewSet(viewsets.GenericViewSet,
 
 
 class RecipeViewSet(viewsets.GenericViewSet,
-                    mixins.ListModelMixin, mixins.CreateModelMixin):
+                    mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin):
     """Manage Recipes in the database"""
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsOwner, permissions.IsAuthenticated, )
