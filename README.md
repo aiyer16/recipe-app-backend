@@ -1,5 +1,5 @@
 # recipe-app-api
-REST API for a simple Recipe application created using Django REST framework. Uses Postgres databases as backend. Clone this repository to use as template to fulfill all your REST API needs. 
+REST API for a simple Recipe application created using Django REST framework and Postgres database. Clone this repository to use as template to fulfill all your REST API needs. 
 
 ## Getting Started
 
