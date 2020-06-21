@@ -1,5 +1,5 @@
 # recipe-app-api
-REST API for the Recipe App created using Django REST framework. Clone this repository to use as template to fulfill all your API needs. 
+REST API for a simple Recipe application created using Django REST framework. Uses Postgres databases as backend. Clone this repository to use as template to fulfill all your REST API needs. 
 
 ## Getting Started
 
@@ -19,7 +19,7 @@ PGADMIN_DEFAULT_PASSWORD=supersecretpassword
 Running this command for the first time will automatically build the required images.
 
 ```sh
-# Must be root directory
+# Must be run from root directory
 docker-compose up
 ```
 
