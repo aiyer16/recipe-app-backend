@@ -19,7 +19,7 @@ class TagViewSet(viewsets.GenericViewSet,
         if self.request.user.is_superuser:
             return self.queryset.order_by('name')
         else:
-            return self.queryset.filter(owner=self.request.user)\
+            return self.queryset.filter(owner=self.request.user.id)\
                 .order_by('name')
 
     def perform_create(self, serializer):
@@ -41,7 +41,7 @@ class IngredientViewSet(viewsets.GenericViewSet,
             return self.queryset.order_by('name')
         else:
             return self.queryset.filter(
-                owner=self.request.user,
+                owner=self.request.user.id,
             ).order_by('name')
 
     def perform_create(self, serializer):
@@ -50,7 +50,8 @@ class IngredientViewSet(viewsets.GenericViewSet,
 
 
 class RecipeViewSet(viewsets.GenericViewSet,
-                    mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin):
+                    mixins.ListModelMixin,
+                    mixins.CreateModelMixin, mixins.RetrieveModelMixin):
     """Manage Recipes in the database"""
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsOwner, permissions.IsAuthenticated, )
@@ -69,7 +70,7 @@ class RecipeViewSet(viewsets.GenericViewSet,
             return self.queryset.order_by('title')
         else:
             return self.queryset.filter(
-                owner=self.request.user,
+                owner=self.request.user.id,
             ).order_by('title')
 
     def perform_create(self, serializer):
