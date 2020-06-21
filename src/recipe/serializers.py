@@ -77,8 +77,7 @@ class RecipeCreateSerializer(RecipeSerializer):
             instruction['recipe'] = recipe
 
         # Create an instance of the instruction object
-        instructions = instruction_serializer.create(
-            instruction_validated_data)
+        instruction_serializer.create(instruction_validated_data)
 
         # Get the corrsponding ingredients and tag fields based on key
         ingredients = models.Ingredient.objects.filter(
