@@ -7,7 +7,8 @@ from .permissions import IsOwner
 
 
 class TagViewSet(viewsets.GenericViewSet,
-                 mixins.ListModelMixin, mixins.CreateModelMixin):
+                 mixins.ListModelMixin,
+                 mixins.CreateModelMixin, mixins.RetrieveModelMixin):
     """Manage Recipe Tags in the database"""
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsOwner, permissions.IsAuthenticated,)
@@ -28,7 +29,8 @@ class TagViewSet(viewsets.GenericViewSet,
 
 
 class IngredientViewSet(viewsets.GenericViewSet,
-                        mixins.ListModelMixin, mixins.CreateModelMixin):
+                        mixins.ListModelMixin,
+                        mixins.CreateModelMixin, mixins.RetrieveModelMixin):
     """Manage Recipe Ingredients in the database"""
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsOwner, permissions.IsAuthenticated, )
