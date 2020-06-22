@@ -46,12 +46,46 @@ At this point it is a good idea to run all tests to confirm that the site is wor
 docker-compose run --rm recipe-api-app-server sh -c "python manage.py test && flake8"
 ```
 
+## API Endpoints
+Navigating to http://localhost:8000/api/index will provide you a swagger style documentation for all the endpoints for this API. 
+
+![Swagger API Docs](/images/SwaggerIndexPage.png)
+
+### Authentication
+All the endpoints for the recipe app are gated behind token based authentication. You can use the following endpoints to login/logout by generating/destroying token(s). 
+
+- /auth/token/login: Generate a token by supplying a site username/password
+- /auth/token/logout: Destroy generated token that is supplied via request header.
+
+The token generated here must be supplied to all other endpoints in this app or the Unauthorized Request will be generated. If you're using the swagger style browsable API, you can supply this easily using the Authorize button and entering the token as follows. Once logged in, all endpoints will be available. 
+
+![Swagger token authorization](/images/SwaggerTokenAuthorize.png)
+
+### Recipe
+#### Ingredients
+http://localhost:8000/api/recipe/ingredients   
+http://localhost:8000/api/recipe/ingredients/{id}
+- Allowed Methods: GET, POST
+- Returns ingredients tied to logged in user or all ingredients if user is a superuser. 
+
+#### Tags
+http://localhost:8000/api/recipe/tags   
+http://localhost:8000/api/recipe/tags/{id}
+- Allowed Methods: GET, POST
+- Returns tags tied to logged in user or all tags if user is a superuser. 
+
+#### Recipes
+http://localhost:8000/api/recipe/recipes   
+http://localhost:8000/api/recipe/recipes/{id}
+- Allowed Methods: GET, POST
+- Returns recipes tied to logged in user or all recipes if user is a superuser. 
+
 ## Useful commands
 
 ### Start all container services
 
 ```sh
-# Must be root directory
+# Must be run from root directory
 docker-compose up
 ```
 
